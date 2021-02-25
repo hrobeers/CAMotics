@@ -24,6 +24,7 @@
 #include "ConicSweep.h"
 #include "CompositeSweep.h"
 #include "SpheroidSweep.h"
+#include "DiskSweep.h"
 
 #include <gcode/ToolTable.h>
 
@@ -154,6 +155,9 @@ SmartPointer<Sweep> ToolSweep::getSweep(const GCode::Tool &tool) {
 
   case GCode::ToolShape::TS_SPHEROID:
     return new SpheroidSweep(tool.getRadius(), tool.getLength());
+
+  case GCode::ToolShape::TS_DISK:
+    return new DiskSweep(tool.getRadius(), tool.getLength());
 
   case GCode::ToolShape::TS_SNUBNOSE:
     return new ConicSweep(tool.getLength(), tool.getRadius(),

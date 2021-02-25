@@ -75,6 +75,14 @@ void ToolView::set(const GCode::Tool &tool) {
     add(new GLConic(0, radius, length));
     break;
 
+  case GCode::ToolShape::TS_DISK: {
+    SmartPointer<GLObject> o = new GLConic(radius, radius, length);
+    o->getTransform().translate(-length/2,0,0);
+    o->getTransform().rotate(M_PI/2, 0, 1, 0);
+    add(o);
+    break;
+  }
+
   case GCode::ToolShape::TS_CYLINDRICAL:
   default: add(new GLConic(radius, radius, length)); break;
   }

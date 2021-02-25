@@ -177,6 +177,10 @@ void Tool2DView::draw() {
     cairo_arc(cr, 0, 0, 1, 0, 2 * M_PI);
     cairo_restore(cr);
     break;
+
+  case GCode::ToolShape::TS_DISK:
+    cairo_rectangle(cr, x, y, diameter, length);
+    break;
   }
 
   cairo_fill(cr);

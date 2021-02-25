@@ -90,6 +90,7 @@ void GCodeModule::define(js::Sink &exports) {
   exports.insert("BALLNOSE", ToolShape::TS_BALLNOSE);
   exports.insert("SPHEROID", ToolShape::TS_SPHEROID);
   exports.insert("SNUBNOSE", ToolShape::TS_SNUBNOSE);
+  exports.insert("DISK", ToolShape::TS_DISK);
 
   exports.insert("X_MIN", MachineEnum::X_MIN);
   exports.insert("X_MAX", MachineEnum::X_MAX);
