@@ -85,10 +85,21 @@ double DiskSweep::depth(const Vector3D &A, const Vector3D &B,
   if (Px < min(Ax, Bx) - l/2 || max(Ax, Bx) + l/2 < Px) return -1;
 
   // Distance factor A to B
-  auto d = P-A;
-  double fd = (B-A).dot(d)/A.distanceSquared(B);
+  double fd = (A.x()==B.x())?
+/*
+    ((A.y()==B.y())?
+      (P.z()-A.z())/(B.z()-A.z()) :
+      (P.y()-A.y())/(B.y()-A.y())) :
+*/
+    std::max(0.0, std::min(1.0,(B-A).dot(P-A)/A.distanceSquared(B))) : // slower and not always well conditioned e.g. when B-A is perpendicular to P-A
+    (P.x()-A.x())/(B.x()-A.x()); // faster
+/*
+  fd = std::max(fd,0.0);
+  fd = std::min(fd,1.0);
+*/
 
   // Disk center to eval
+  // TODO does not take the disk thickness correctly into account
   auto Pd = A + (B-A)*fd;
 
   // Check if distance to Pd is smaller than radius
